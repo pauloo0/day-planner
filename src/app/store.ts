@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 
 // Reducers
-import meetingsReducer from './slices/meetingsSlice'
+import meetingsReducer from '../features/Meeting/meetingsSlice'
+import calendarReducer from '../features/Calendar/calendarSlice'
 
 export const store = configureStore({
   reducer: {
     meetings: meetingsReducer,
+    calendar: calendarReducer,
   },
 })
 

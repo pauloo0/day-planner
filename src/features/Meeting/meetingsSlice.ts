@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import type { RootState } from '../store'
-import type { Meeting } from '../types'
-import { pb } from '../db'
+import type { RootState } from '../../app/store'
+import type { Meeting } from '../../app/types'
+import { pb } from '../../app/db'
 
 interface MeetingState {
   meetings: Meeting[]
