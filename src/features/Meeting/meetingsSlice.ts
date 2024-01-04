@@ -44,6 +44,8 @@ export const meetingsSlice = createSlice({
 })
 
 export const selectAllMeetings = (state: RootState) => state.meetings.meetings
+export const selectMeetingsByDate = (date: string) => (state: RootState) =>
+  state.meetings.meetings.filter((meeting) => meeting.start_date === date)
 
 export const selectMeetingStatus = (state: RootState) => state.meetings.status
 export const selectMeetingError = (state: RootState) => state.meetings.error

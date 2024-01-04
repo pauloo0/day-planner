@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import {
   format,
@@ -13,6 +13,12 @@ import {
   parseISO,
 } from 'date-fns'
 import { setSelectedDate, getSelectedDate } from './calendarSlice'
+import {
+  fetchMeetings,
+  selectMeetingError,
+  selectMeetingStatus,
+  selectMeetingsByDate,
+} from '../Meeting/meetingsSlice'
 
 const dow = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
 const colStartClasses = [
@@ -23,59 +29,6 @@ const colStartClasses = [
   'col-start-5',
   'col-start-6',
   'col-start-7',
-]
-
-const meetings = [
-  {
-    id: 'douiwaji',
-    created: '2023-12-18',
-    updated: '2023-12-18',
-    title: 'Meeting 1',
-    start_date: '2023-12-18',
-    start_time: '09:00',
-    end_date: '2023-12-18',
-    end_time: '10:00',
-  },
-  {
-    id: 'dou21waji',
-    created: '2023-12-15',
-    updated: '2023-12-15',
-    title: 'Meeting 2',
-    start_date: '2023-12-15',
-    start_time: '11:00',
-    end_date: '2023-12-15',
-    end_time: '12:00',
-  },
-  {
-    id: 'dodacaji',
-    created: '2023-12-18',
-    updated: '2023-12-18',
-    title: 'Meeting 3',
-    start_date: '2023-12-18',
-    start_time: '13:00',
-    end_date: '2023-12-18',
-    end_time: '14:00',
-  },
-  {
-    id: 'dodawaji',
-    created: '2023-12-20',
-    updated: '2023-12-20',
-    title: 'Meeting 4',
-    start_date: '2023-12-20',
-    start_time: '15:00',
-    end_date: '2023-12-20',
-    end_time: '16:00',
-  },
-  {
-    id: 'douiwlkj',
-    created: '2023-12-20',
-    updated: '2023-12-20',
-    title: 'Meeting 5',
-    start_date: '2023-12-20',
-    start_time: '17:00',
-    end_date: '2023-12-20',
-    end_time: '18:00',
-  },
 ]
 
 const Calendar: React.FC = () => {
@@ -103,6 +56,21 @@ const Calendar: React.FC = () => {
     const newMonth = format(add(selectedDate, { months: 1 }), 'yyyy-MM-dd')
     dispatch(setSelectedDate(newMonth))
   }
+
+  const meetings = useAppSelector(
+    selectMeetingsByDate(useAppSelector(getSelectedDate))
+  )
+
+  const meetingStatus = useAppSelector(selectMeetingStatus)
+  const meetingError = useAppSelector(selectMeetingError)
+
+  useEffect(() => {
+    if (meetingStatus === 'idle') {
+      dispatch(fetchMeetings())
+    }
+  }, [meetingStatus, dispatch])
+
+  meetingError && console.log(meetingError)
 
   return (
     <div>

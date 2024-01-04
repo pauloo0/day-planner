@@ -1,13 +1,13 @@
 import React from 'react'
 
 import Calendar from './features/Calendar/Calendar'
-// import MeetingList from './features/Meeting/MeetingList'
+import MeetingList from './features/Meeting/MeetingList'
 
 const App: React.FC = () => {
   return (
     <div>
       <Calendar />
-      {/* <MeetingList /> */}
+      <MeetingList />
     </div>
   )
 }
