@@ -17,7 +17,7 @@ import {
   fetchMeetings,
   selectMeetingError,
   selectMeetingStatus,
-  selectMeetingsByDate,
+  selectAllMeetings,
 } from '../Meeting/meetingsSlice'
 
 const dow = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
@@ -57,9 +57,7 @@ const Calendar: React.FC = () => {
     dispatch(setSelectedDate(newMonth))
   }
 
-  const meetings = useAppSelector(
-    selectMeetingsByDate(useAppSelector(getSelectedDate))
-  )
+  const meetings = useAppSelector(selectAllMeetings)
 
   const meetingStatus = useAppSelector(selectMeetingStatus)
   const meetingError = useAppSelector(selectMeetingError)

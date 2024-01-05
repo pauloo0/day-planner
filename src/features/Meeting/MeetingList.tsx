@@ -8,6 +8,7 @@ import {
   selectMeetingError,
 } from './meetingsSlice'
 import { getSelectedDate } from '../Calendar/calendarSlice'
+import MeetingItem from './MeetingItem'
 
 const MeetingList: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -31,13 +32,7 @@ const MeetingList: React.FC = () => {
   return (
     <div>
       {meetings.map((meeting) => (
-        <div key={meeting.id}>
-          <h2>{meeting.title}</h2>
-          <p>{meeting.start_date}</p>
-          <p>
-            {meeting.start_time} - {meeting.end_time}
-          </p>
-        </div>
+        <MeetingItem meeting={meeting} />
       ))}
     </div>
   )
