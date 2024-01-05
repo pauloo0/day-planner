@@ -32,7 +32,7 @@ const MeetingList: React.FC = () => {
   return (
     <div>
       {meetings.map((meeting) => (
-        <MeetingItem meeting={meeting} />
+        <MeetingItem key={meeting.id} meeting={meeting} />
       ))}
     </div>
   )
