@@ -3,8 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks'
 
 import {
   fetchMeetings,
-  // selectMeetingsByDate,
-  selectAllMeetings,
+  selectMeetingsByDate,
   selectMeetingStatus,
   selectMeetingError,
 } from './meetingsSlice'
@@ -13,7 +12,9 @@ import { getSelectedDate } from '../Calendar/calendarSlice'
 const MeetingList: React.FC = () => {
   const dispatch = useAppDispatch()
 
-  const meetings = useAppSelector(selectAllMeetings)
+  const meetings = useAppSelector(
+    selectMeetingsByDate(useAppSelector(getSelectedDate))
+  )
 
   const meetingStatus = useAppSelector(selectMeetingStatus)
   const meetingError = useAppSelector(selectMeetingError)
