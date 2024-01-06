@@ -31,6 +31,16 @@ export const createMeeting = createAsyncThunk(
   }
 )
 
+export const updateMeeting = createAsyncThunk(
+  'meetings/updateMeeting',
+  async (meeting: Meeting) => {
+    const response = await pb
+      .collection('meetings')
+      .update(meeting.id || '', meeting)
+    return response
+  }
+)
+
 export const meetingsSlice = createSlice({
   name: 'meetings',
   initialState,
@@ -66,6 +76,29 @@ export const meetingsSlice = createSlice({
         state.meetings.push(newMeeting)
       })
       .addCase(createMeeting.rejected, (state, action) => {
+        state.status = 'failed'
+        state.error = action.error.message || 'Something went wrong!'
+      })
+
+      .addCase(updateMeeting.pending, (state) => {
+        state.status = 'loading'
+      })
+      .addCase(updateMeeting.fulfilled, (state, action) => {
+        const newMeeting: Meeting = {
+          title: action.payload.title,
+          description: action.payload.description,
+          start_date: action.payload.start_date,
+          start_time: action.payload.start_time,
+          end_date: action.payload.start_date,
+          end_time: action.payload.end_time,
+        }
+
+        state.status = 'succeeded'
+        state.meetings = state.meetings.map((meeting) =>
+          meeting.id === newMeeting.id ? newMeeting : meeting
+        )
+      })
+      .addCase(updateMeeting.rejected, (state, action) => {
         state.status = 'failed'
         state.error = action.error.message || 'Something went wrong!'
       })

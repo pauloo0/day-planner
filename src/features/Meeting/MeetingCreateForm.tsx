@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { Meeting } from '../../app/types'
 
-interface MeetingFormProps {
-  mode: 'add' | 'edit'
+interface MeetingCreateFormProps {
   meeting?: Meeting
   setIsFormOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
@@ -19,7 +18,7 @@ const defaultMeeting: Meeting = {
 import { createMeeting } from './meetingsSlice'
 import { useAppDispatch } from '../../app/hooks'
 
-const MeetingForm: React.FC<MeetingFormProps> = (props) => {
+const MeetingCreateForm: React.FC<MeetingCreateFormProps> = (props) => {
   const dispatch = useAppDispatch()
   const [meeting, setMeeting] = useState(defaultMeeting)
 
@@ -99,4 +98,4 @@ const MeetingForm: React.FC<MeetingFormProps> = (props) => {
   )
 }
 
-export default MeetingForm
+export default MeetingCreateForm

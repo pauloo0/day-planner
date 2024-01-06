@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import Calendar from './features/Calendar/Calendar'
 import MeetingList from './features/Meeting/MeetingList'
-import MeetingForm from './features/Meeting/MeetingForm'
+import MeetingCreateForm from './features/Meeting/MeetingCreateForm'
 
 const App: React.FC = () => {
   const [isFormOpen, setIsFormOpen] = useState(false)
@@ -14,7 +14,7 @@ const App: React.FC = () => {
       <button type='button' onClick={() => setIsFormOpen(!isFormOpen)}>
         {isFormOpen ? 'Cancelar' : 'Novo'}
       </button>
-      {isFormOpen && <MeetingForm mode='add' setIsFormOpen={setIsFormOpen} />}
+      {isFormOpen && <MeetingCreateForm setIsFormOpen={setIsFormOpen} />}
     </div>
   )
 }

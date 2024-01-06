@@ -1,5 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Meeting } from '../../app/types'
+
+import MeetingInformation from './MeetingInformation'
+import MeetingEditForm from './MeetingEditForm'
 
 interface MeetingItemProps {
   meeting: Meeting
@@ -7,16 +10,13 @@ interface MeetingItemProps {
 
 const MeetingItem: React.FC<MeetingItemProps> = (props) => {
   const { meeting } = props
+  const [isEditing, setIsEditing] = useState(false)
 
-  return (
-    <div>
-      <h2>{meeting.title}</h2>
-      <p>{meeting.start_date}</p>
-      <p>
-        {meeting.start_time} - {meeting.end_time}
-      </p>
-    </div>
-  )
+  if (isEditing) {
+    return <MeetingEditForm meeting={meeting} setIsEditing={setIsEditing} />
+  }
+
+  return <MeetingInformation meeting={meeting} setIsEditing={setIsEditing} />
 }
 
 export default MeetingItem
