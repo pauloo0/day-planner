@@ -4,6 +4,7 @@ import { Meeting } from '../../app/types'
 interface MeetingFormProps {
   mode: 'add' | 'edit'
   meeting?: Meeting
+  setIsFormOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const defaultMeeting: Meeting = {
@@ -18,9 +19,11 @@ const defaultMeeting: Meeting = {
 import { createMeeting } from './meetingsSlice'
 import { useAppDispatch } from '../../app/hooks'
 
-const MeetingForm: React.FC<MeetingFormProps> = () => {
+const MeetingForm: React.FC<MeetingFormProps> = (props) => {
   const dispatch = useAppDispatch()
   const [meeting, setMeeting] = useState(defaultMeeting)
+
+  const { setIsFormOpen } = props
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name } = e.target
@@ -37,6 +40,7 @@ const MeetingForm: React.FC<MeetingFormProps> = () => {
     e.preventDefault()
 
     dispatch(createMeeting(meeting))
+    setIsFormOpen(false)
   }
 
   return (

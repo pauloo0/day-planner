@@ -14,7 +14,7 @@ const App: React.FC = () => {
       <button type='button' onClick={() => setIsFormOpen(!isFormOpen)}>
         {isFormOpen ? 'Cancelar' : 'Novo'}
       </button>
-      {isFormOpen && <MeetingForm mode='add' />}
+      {isFormOpen && <MeetingForm mode='add' setIsFormOpen={setIsFormOpen} />}
     </div>
   )
 }
