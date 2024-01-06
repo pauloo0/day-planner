@@ -41,6 +41,14 @@ export const updateMeeting = createAsyncThunk(
   }
 )
 
+export const deleteMeeting = createAsyncThunk(
+  'meetings/deleteMeeting',
+  async (id: string) => {
+    await pb.collection('meetings').delete(id)
+    return id
+  }
+)
+
 export const meetingsSlice = createSlice({
   name: 'meetings',
   initialState,
@@ -101,6 +109,16 @@ export const meetingsSlice = createSlice({
       .addCase(updateMeeting.rejected, (state, action) => {
         state.status = 'failed'
         state.error = action.error.message || 'Something went wrong!'
+      })
+
+      .addCase(deleteMeeting.pending, (state) => {
+        state.status = 'loading'
+      })
+      .addCase(deleteMeeting.fulfilled, (state, action) => {
+        state.status = 'succeeded'
+        state.meetings = state.meetings.filter(
+          (meeting) => meeting.id !== action.payload
+        )
       })
   },
 })
