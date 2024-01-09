@@ -16,10 +16,18 @@ const defaultMeeting: Meeting = {
 }
 
 import { createMeeting } from './meetingsSlice'
-import { useAppDispatch } from '../../app/hooks'
+import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import { getSelectedDate } from '../Calendar/calendarSlice'
+import { format } from 'date-fns'
 
 const MeetingCreateForm: React.FC<MeetingCreateFormProps> = (props) => {
   const dispatch = useAppDispatch()
+  const selectedDate = useAppSelector(getSelectedDate)
+
+  defaultMeeting.start_date = selectedDate
+  defaultMeeting.end_date = selectedDate
+  defaultMeeting.start_time = format(new Date(), 'HH:mm')
+
   const [meeting, setMeeting] = useState(defaultMeeting)
 
   const { setIsFormOpen } = props
