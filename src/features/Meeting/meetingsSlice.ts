@@ -125,7 +125,17 @@ export const meetingsSlice = createSlice({
 
 export const selectAllMeetings = (state: RootState) => state.meetings.meetings
 export const selectMeetingsByDate = (date: string) => (state: RootState) =>
-  state.meetings.meetings.filter((meeting) => meeting.start_date === date)
+  state.meetings.meetings
+    .filter((meeting) => meeting.start_date === date)
+    .sort((a, b) => {
+      if (a.start_time < b.start_time) {
+        return -1
+      }
+      if (a.start_time > b.start_time) {
+        return 1
+      }
+      return 0
+    })
 
 export const selectMeetingStatus = (state: RootState) => state.meetings.status
 export const selectMeetingError = (state: RootState) => state.meetings.error
