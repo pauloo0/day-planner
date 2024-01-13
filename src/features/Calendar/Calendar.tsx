@@ -20,7 +20,9 @@ import {
   selectAllMeetings,
 } from '../Meeting/meetingsSlice'
 
-const dow = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
+import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
+
+const dow = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb']
 const colStartClasses = [
   'col-start-1',
   'col-start-2',
@@ -38,6 +40,9 @@ const Calendar: React.FC = () => {
     'yyyy-MM-dd',
     new Date()
   )
+
+  const month = format(selectedDate, 'MMMM')
+  const year = format(selectedDate, 'yyyy')
 
   const daysOfMonth = eachDayOfInterval({
     start: startOfMonth(selectedDate),
@@ -71,40 +76,60 @@ const Calendar: React.FC = () => {
   meetingError && console.log(meetingError)
 
   return (
-    <div>
-      <h2 className='flex flex-row justify-around align-center'>
-        <button type='button' onClick={goPreviousMonth}>
-          Previous
-        </button>
-        {format(selectedDate, 'MMMM yyyy')}
-        <button type='button' onClick={goNextMonth}>
-          Next
-        </button>
-      </h2>
-      <section className='grid grid-cols-7 gap-2 my-2'>
+    <div className='mx-4'>
+      <section
+        id='calendar-navigation'
+        className='mt-8 flex items-center justify-between'
+      >
+        <div id='month-year' className='flex items-center'>
+          <h1 className='text-2xl flex items-end justify-start gap-1.5'>
+            {month}
+            <span className='text-base'>{year}</span>
+          </h1>
+        </div>
+        <div id='month-controller' className='flex items-center gap-3'>
+          <button
+            type='button'
+            className='p-1 bg-orange-600 rounded-md'
+            onClick={goPreviousMonth}
+          >
+            <IconChevronLeft />
+          </button>
+          <button
+            type='button'
+            className='p-1 bg-orange-600 rounded-md'
+            onClick={goNextMonth}
+          >
+            <IconChevronRight />
+          </button>
+        </div>
+      </section>
+
+      <section id='days-of-week' className='grid grid-cols-7 gap-2 my-2'>
         {dow.map((day, index) => (
           <div key={index} className='text-center'>
             {day}
           </div>
         ))}
       </section>
+
       <section className='grid grid-cols-7 gap-2'>
         {daysOfMonth.map((day) => (
           <div
             key={day.toString()}
-            className={`p-2 text-center cursor-pointer rounded-full
+            className={`p-1 text-center cursor-pointer rounded-md hover:bg-orange-500
             ${colStartClasses[day.getDay()]}
-            ${isEqual(day, selectedDate) ? 'bg-blue-400' : 'bg-blue-100'} ${
-              isSameMonth(day, selectedDate) ? 'bg-blue-200' : 'bg-gray-200'
+            ${isEqual(day, selectedDate) ? 'bg-orange-600' : ''} ${
+              isSameMonth(day, selectedDate) ? '' : 'color-gray-400'
             }`}
             onClick={() => handleDateClick(day)}
           >
             <button>{format(day, 'd')}</button>
             <div
-              className={`w-1 h-1 mx-auto ${
+              className={`w-1.5 h-1.5 mx-auto ${
                 meetings.some((meeting) =>
                   isSameDay(parseISO(meeting.start_date), day)
-                ) && 'bg-red-500'
+                ) && 'bg-cyan-300 border border-slate-900'
               } rounded-full`}
             ></div>
           </div>
