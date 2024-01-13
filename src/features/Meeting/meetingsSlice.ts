@@ -55,6 +55,7 @@ export const meetingsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      // FETCH MEETINGS
       .addCase(fetchMeetings.pending, (state) => {
         state.status = 'loading'
       })
@@ -67,6 +68,7 @@ export const meetingsSlice = createSlice({
         state.error = action.error.message || 'Something went wrong!'
       })
 
+      // CREATE MEETING
       .addCase(createMeeting.pending, (state) => {
         state.status = 'loading'
       })
@@ -88,6 +90,7 @@ export const meetingsSlice = createSlice({
         state.error = action.error.message || 'Something went wrong!'
       })
 
+      // UPDATE MEETING
       .addCase(updateMeeting.pending, (state) => {
         state.status = 'loading'
       })
@@ -111,6 +114,7 @@ export const meetingsSlice = createSlice({
         state.error = action.error.message || 'Something went wrong!'
       })
 
+      // DELETE MEETING
       .addCase(deleteMeeting.pending, (state) => {
         state.status = 'loading'
       })

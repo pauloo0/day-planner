@@ -21,7 +21,7 @@ const MeetingInformation: React.FC<MeetingInformationProps> = (props) => {
     <div className='flex items-center space-x-4 border border-slate-500'>
       <div>
         <h2>{meeting.title}</h2>
-        <h3></h3>
+        <h3>{meeting.description}</h3>
         <p>{meeting.start_date}</p>
         <p>
           {meeting.start_time} - {meeting.end_time}
