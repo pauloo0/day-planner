@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import {
   format,
@@ -33,7 +33,20 @@ const colStartClasses = [
   'col-start-7',
 ]
 
-const Calendar: React.FC = () => {
+interface CalendarProps {
+  setCalendarHeight: React.Dispatch<React.SetStateAction<number>>
+}
+
+const Calendar: React.FC<CalendarProps> = (props) => {
+  const calendarRef = useRef<HTMLDivElement>(null)
+  const { setCalendarHeight } = props
+
+  useEffect(() => {
+    if (!calendarRef.current) return
+    const calendarHeight = calendarRef.current?.offsetHeight || 0
+    setCalendarHeight(calendarHeight)
+  }, [calendarRef, setCalendarHeight])
+
   const dispatch = useAppDispatch()
   const selectedDate = parse(
     useAppSelector(getSelectedDate),
@@ -76,7 +89,7 @@ const Calendar: React.FC = () => {
   meetingError && console.log(meetingError)
 
   return (
-    <div className='mx-4'>
+    <section id='calendar' className='mx-4' ref={calendarRef}>
       <section
         id='calendar-navigation'
         className='mt-8 flex items-center justify-between'
@@ -135,7 +148,7 @@ const Calendar: React.FC = () => {
           </div>
         ))}
       </section>
-    </div>
+    </section>
   )
 }
 

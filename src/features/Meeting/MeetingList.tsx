@@ -30,11 +30,11 @@ const MeetingList: React.FC = () => {
   meetingStatus === 'loading' && <h1>Loading...</h1>
 
   return (
-    <div>
+    <section className='mx-4 pt-10 flex flex-col gap-2 overflow-auto'>
       {meetings.map((meeting) => (
         <MeetingItem key={meeting.id} meeting={meeting} />
       ))}
-    </div>
+    </section>
   )
 }
 
