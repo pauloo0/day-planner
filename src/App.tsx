@@ -16,8 +16,6 @@ const App: React.FC = () => {
     setMeetingListHeight(screenHeight - calendarHeight - 40 + 'px')
   }, [calendarHeight, meetingListHeight])
 
-  console.log(meetingListHeight)
-
   return (
     <>
       <Calendar setCalendarHeight={setCalendarHeight} />
