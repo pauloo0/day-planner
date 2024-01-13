@@ -25,7 +25,7 @@ const App: React.FC = () => {
         <MeetingList />
         <button
           type='button'
-          className='absolute bottom-6 right-6 bg-orange-600 hover:bg-orange-700 text-white font-bold p-2 rounded transition-all duration-150'
+          className='fixed bottom-6 right-6 bg-orange-600 hover:bg-orange-700 text-white font-bold p-2 rounded transition-all duration-150'
           onClick={() => setIsFormOpen(!isFormOpen)}
         >
           {isFormOpen ? <IconX /> : <IconPlus />}
