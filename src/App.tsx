@@ -25,12 +25,13 @@ const App: React.FC = () => {
         <MeetingList />
         <button
           type='button'
-          className='fixed bottom-6 right-6 bg-orange-600 hover:bg-orange-700 text-white font-bold p-2 rounded transition-all duration-150'
+          className='fixed p-2 font-bold text-white transition-all duration-150 bg-orange-600 rounded bottom-6 right-6 hover:bg-orange-700'
           onClick={() => setIsFormOpen(!isFormOpen)}
         >
           {isFormOpen ? <IconX /> : <IconPlus />}
         </button>
         {isFormOpen && <MeetingCreateForm setIsFormOpen={setIsFormOpen} />}
+        <div className='h-10 bg-transparent' />
       </section>
     </>
   )
