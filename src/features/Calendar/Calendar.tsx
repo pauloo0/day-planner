@@ -92,7 +92,7 @@ const Calendar: React.FC<CalendarProps> = (props) => {
     <section id='calendar' className='mx-4' ref={calendarRef}>
       <section
         id='calendar-navigation'
-        className='mt-8 flex items-center justify-between'
+        className='flex items-center justify-between mt-8'
       >
         <div id='month-year' className='flex items-center'>
           <h1 className='text-2xl flex items-end justify-start gap-1.5'>
@@ -103,14 +103,14 @@ const Calendar: React.FC<CalendarProps> = (props) => {
         <div id='month-controller' className='flex items-center gap-3'>
           <button
             type='button'
-            className='p-1 bg-orange-600 rounded-md'
+            className='p-1 bg-orange-600 rounded-md hover:bg-orange-700'
             onClick={goPreviousMonth}
           >
             <IconChevronLeft />
           </button>
           <button
             type='button'
-            className='p-1 bg-orange-600 rounded-md'
+            className='p-1 bg-orange-600 rounded-md hover:bg-orange-700'
             onClick={goNextMonth}
           >
             <IconChevronRight />
@@ -130,7 +130,7 @@ const Calendar: React.FC<CalendarProps> = (props) => {
         {daysOfMonth.map((day) => (
           <div
             key={day.toString()}
-            className={`p-1 text-center cursor-pointer rounded-md hover:bg-orange-500
+            className={`p-1 text-center cursor-pointer rounded-md hover:bg-orange-700
             ${colStartClasses[day.getDay()]}
             ${isEqual(day, selectedDate) ? 'bg-orange-600' : ''} ${
               isSameMonth(day, selectedDate) ? '' : 'color-gray-400'
