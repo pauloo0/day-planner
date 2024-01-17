@@ -21,9 +21,9 @@ const MeetingInformation: React.FC<MeetingInformationProps> = (props) => {
   }
 
   return (
-    <div className='shadow-sm border-2 p-2 flex items-center justify-between rounded-2xl min-h-[100px]'>
+    <div className='shadow-sm border-2 p-2 flex items-center justify-between rounded-2xl min-h-[100px] gap-4'>
       <section className='flex flex-col gap-2'>
-        <h1 className='text-xl flex gap-2 items-end'>{meeting.title}</h1>
+        <h1 className='flex items-end gap-2 text-xl'>{meeting.title}</h1>
         <span className='text-sm text-slate-500'>
           <time>{startTime}</time> - <time>{endTime}</time>
         </span>
@@ -47,31 +47,6 @@ const MeetingInformation: React.FC<MeetingInformationProps> = (props) => {
           <IconTrash color='white' />
         </button>
       </section>
-      {/*       
-      <div>
-        <h2>{meeting.title}</h2>
-        <h3>{meeting.description}</h3>
-        <p>{meeting.start_date}</p>
-        <p>
-          {meeting.start_time} - {meeting.end_time}
-        </p>
-      </div>
-      <div className='flex space-x-2'>
-        <button
-          type='button'
-          className='p-4 border-2 rounded-md border-amber-500'
-          onClick={handleEditClick}
-        >
-          Edit
-        </button>
-        <button
-          type='button'
-          className='p-4 border-2 border-red-500 rounded-md'
-          onClick={() => dispatch(deleteMeeting(meeting.id || ''))}
-        >
-          Delete
-        </button>
-      </div> */}
     </div>
   )
 }
