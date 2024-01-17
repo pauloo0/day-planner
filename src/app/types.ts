@@ -9,3 +9,10 @@ export type Meeting = {
   end_date: string
   end_time: string
 }
+
+export type User = {
+  id: string
+  email: string
+  username: string
+  token: string
+}

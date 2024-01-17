@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react'
+import { useAppSelector } from './app/hooks'
+import { getUserId } from './features/Login/userSlice'
 
+import Login from './features/Login/Login'
 import Calendar from './features/Calendar/Calendar'
 import MeetingList from './features/Meeting/MeetingList'
 import MeetingCreateForm from './features/Meeting/MeetingCreateForm'
 
 import { IconX, IconPlus } from '@tabler/icons-react'
 
+import { pb } from './app/db'
+
 const App: React.FC = () => {
+  const userId = useAppSelector(getUserId)
   const [isFormOpen, setIsFormOpen] = useState(false)
   const [calendarHeight, setCalendarHeight] = useState(0)
   const [meetingListHeight, setMeetingListHeight] = useState('')
@@ -16,25 +22,32 @@ const App: React.FC = () => {
     setMeetingListHeight(screenHeight - calendarHeight - 40 + 'px')
   }, [calendarHeight, meetingListHeight])
 
-  return (
-    <>
-      <Calendar setCalendarHeight={setCalendarHeight} />
-      <section
-        className={`mt-4 bg-slate-100 min-h-[${meetingListHeight}] text-slate-900 rounded-t-[40px] `}
-      >
-        <MeetingList />
-        <button
-          type='button'
-          className='fixed p-2 font-bold text-white transition-all duration-150 bg-orange-600 rounded bottom-6 right-6 hover:bg-orange-700'
-          onClick={() => setIsFormOpen(!isFormOpen)}
+  console.log('Redux userId : ', userId)
+  console.log('PB authStore : ', pb.authStore.model?.id)
+
+  if (userId === '') {
+    return <Login />
+  } else {
+    return (
+      <>
+        <Calendar setCalendarHeight={setCalendarHeight} />
+        <section
+          className={`mt-4 bg-slate-100 min-h-[${meetingListHeight}] text-slate-900 rounded-t-[40px] `}
         >
-          {isFormOpen ? <IconX /> : <IconPlus />}
-        </button>
-        {isFormOpen && <MeetingCreateForm setIsFormOpen={setIsFormOpen} />}
-        <div className='h-10 bg-transparent' />
-      </section>
-    </>
-  )
+          <MeetingList />
+          <button
+            type='button'
+            className='fixed p-2 font-bold text-white transition-all duration-150 bg-orange-600 rounded bottom-6 right-6 hover:bg-orange-700'
+            onClick={() => setIsFormOpen(!isFormOpen)}
+          >
+            {isFormOpen ? <IconX /> : <IconPlus />}
+          </button>
+          {isFormOpen && <MeetingCreateForm setIsFormOpen={setIsFormOpen} />}
+          <div className='h-10 bg-transparent' />
+        </section>
+      </>
+    )
+  }
 }
 
 export default App
