@@ -8,6 +8,7 @@ export type Meeting = {
   start_time: string
   end_date: string
   end_time: string
+  user_id?: string
 }
 
 export type User = {

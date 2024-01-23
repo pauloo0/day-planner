@@ -20,6 +20,7 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { getSelectedDate } from '../Calendar/calendarSlice'
 import { format } from 'date-fns'
 import { IconCheck, IconX } from '@tabler/icons-react'
+import { pb } from '../../app/db'
 
 const MeetingCreateForm: React.FC<MeetingCreateFormProps> = (props) => {
   const dispatch = useAppDispatch()
@@ -53,6 +54,8 @@ const MeetingCreateForm: React.FC<MeetingCreateFormProps> = (props) => {
 
     if (meeting.start_date !== meeting.end_date)
       meeting.end_date = meeting.start_date
+
+    meeting.user_id = pb.authStore.model?.id as string
 
     dispatch(createMeeting(meeting))
     setIsFormOpen(false)
