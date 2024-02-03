@@ -9,8 +9,6 @@ import MeetingCreateForm from './features/Meeting/MeetingCreateForm'
 
 import { IconX, IconPlus } from '@tabler/icons-react'
 
-import { pb } from './app/db'
-
 const App: React.FC = () => {
   const userId = useAppSelector(getUserId)
   const [isFormOpen, setIsFormOpen] = useState(false)
@@ -21,9 +19,6 @@ const App: React.FC = () => {
     const screenHeight = window.innerHeight
     setMeetingListHeight(screenHeight - calendarHeight - 40 + 'px')
   }, [calendarHeight, meetingListHeight])
-
-  console.log('Redux userId : ', userId)
-  console.log('PB authStore : ', pb.authStore.model?.id)
 
   if (userId === '') {
     return <Login />
